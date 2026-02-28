@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.navigation.NavController
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -31,14 +32,14 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            // Llama a la función principal de la interfaz
-            PantallaContador()
+            // Llama a la función de navegación solamente a esta pantalla
+            AppNavigation()
         }
     }
 }
 
 @Composable
-fun PantallaContador() {
+fun pantalla_principal(navController: NavController) {
     // --- ESTADOS (Variables que guardan datos y actualizan la pantalla) ---
     var usuario by remember { mutableStateOf("") } // Guarda lo que el usuario escribe
     var contrasena by remember { mutableStateOf("") } // Guarda la contraseña
@@ -101,6 +102,8 @@ fun PantallaContador() {
                     mensajeResultado = "Por favor, introduzca los valores"
                 } else if (usuario == usua && contrasena == contra) {
                     mensajeResultado = "¡Logro iniciar sesión!"
+                    // Aquí puedes redirigir a la siguiente pantalla
+                    navController.navigate("lista")
                 } else {
                     mensajeResultado = "Usuario o contraseña incorrectos"
                 }
